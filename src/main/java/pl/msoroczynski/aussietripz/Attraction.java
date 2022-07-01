@@ -6,18 +6,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "attractions")
-public class Attractions {
-    public Attractions() {
+public class Attraction {
+    public Attraction() {
     }
 
-    public Attractions(String name, String description, State state) {
+    public Attraction(String name, String description, State state) {
         this.name = name;
         this.description = description;
         this.state = state;
