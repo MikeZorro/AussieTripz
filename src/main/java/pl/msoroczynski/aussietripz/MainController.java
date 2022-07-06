@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -42,8 +43,13 @@ public class MainController {
         for (Attraction a: result) {
             attractionRepository.save(a);
         }
-        userRepository.save(new User());
-        planRepository.save(new Plan());
+        User user = new User();
+        userRepository.save(user);
+        Plan plan = new Plan();
+        plan.setDescription("Super Plan");
+        plan.setName("Mikes Plan");
+        plan.setAttractions(result);
+        planRepository.save(plan);
 
         return "Its working!";
     }
