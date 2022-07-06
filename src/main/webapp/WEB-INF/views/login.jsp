@@ -7,7 +7,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">Tutaj pyk logowanko</h2><p class="text-white-50">
+                <h2 class="text-white mb-4">SpringSafe implementation</h2><p class="text-white-50">
             </div>
         </div>
     </div>
