@@ -44,7 +44,7 @@
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">AussieTripz</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">Build your own travel plan, add attractions to it and enjoy Australia!</h2>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Build your own travel plan, add attractions to it and enjoy Australia! </h2>
                 <a class="btn btn-primary" href="#about">Start</a>
             </div>
         </div>
