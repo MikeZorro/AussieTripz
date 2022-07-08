@@ -29,7 +29,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-    <li class="text-white-50">User Name</li>
+    <li class="text-white-50"></li>
             </ul>
         </div>
     </div>

@@ -28,8 +28,8 @@ public class AussieTripzController {
 
     @RequestMapping(value = "/topattractions", method = RequestMethod.GET)
     public String listAttractions(Model model) {
-        //model.addAttribute("attractions", ratedAttractionRepository.top10AttractionsByRating());
-       model.addAttribute("attractions", attractionRepository.findAll());
+        model.addAttribute("attractions", ratedAttractionRepository.top10AttractionsByRating());
+       //model.addAttribute("attractions", attractionRepository.findAll());
         return "/topattractions";
     }
 
