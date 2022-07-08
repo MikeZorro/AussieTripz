@@ -24,6 +24,7 @@ public class AussieTripzApplication {
         return new StateConverter();
     }
 
+
     @Bean
     public Validator validator() {
         return new LocalValidatorFactoryBean();
