@@ -88,6 +88,7 @@
                         <div class="project-text w-100 my-auto text-center text-lg-left">
                             <h4 class="text-white">Top Attractions</h4>
                             <p class="mb-0 text-white-50">Do not miss out on our top rated attractions!</p>
+                            <a class="mb-0 text-white-50" href="/tripz/topattractions">See the list</a>
                             <hr class="d-none d-lg-block mb-0 ms-0" />
                         </div>
                     </div>
