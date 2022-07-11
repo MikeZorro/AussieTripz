@@ -15,7 +15,7 @@
     <div class="col-lg-3"><img class="img-fluid" src="<c:url value="/theme/assets/img/logo%202.jpg"/>" /></div>
     <div class="col-lg-6"></div>
     <div class="container-fluid px-4 text-right">
-        <div class="text-muted">Hello UserName</div>
+        <div class="text-muted">Hello ${login}</div>
 
     </div>
 </nav>
@@ -28,7 +28,7 @@
                     <a class="nav-link" href="/tripz/user/home">
                         Home
                     </a>
-                    <a class="nav-link" href="/tripz/user">
+                    <a class="nav-link" href="/tripz/user/userpanel">
                         User Profile
                     </a>
                     <div class="sb-sidenav-menu-heading">Data Base</div>

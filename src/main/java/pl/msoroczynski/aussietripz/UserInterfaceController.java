@@ -7,8 +7,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 import javax.validation.Valid;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/tripz/user")
@@ -26,16 +35,24 @@ public class UserInterfaceController {
         this.stateRepository = stateRepository;
         this.ratedAttractionRepository = ratedAttractionRepository;
     }
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
         return "/index";
     }
 
 
+    @RequestMapping(value = "/userpanel", method = RequestMethod.GET)
+    public String user(Model model, HttpServletRequest request, HttpServletResponse response ) {
+        HttpSession session = request.getSession();
+        model.addAttribute("user", session.getAttribute("user"));
+        return "/userpanel";
+    }
+
     @RequestMapping(value = "/userPlans", method = RequestMethod.GET)
-    public String userPlans(Model model) {
-        User user = new User();
-        user.setId(1L);
+    public String userPlans(Model model,HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         model.addAttribute("plans", planRepository.findAllByUser(user));
         return "/plans2";
     }
@@ -48,33 +65,47 @@ public class UserInterfaceController {
         model.addAttribute("attractions", attractions);
         return "/plan-details";
     }
+
+    @RequestMapping(value = "/plan-adding/{id}", method = RequestMethod.GET)
+    public String planAddingAttractions(@PathVariable String id, Model model) {
+        List<Plan> optionalPlan = planRepository.findFirstById(Long.parseLong(id));
+        Plan plan = optionalPlan.get(0);
+        model.addAttribute("plan", plan);
+        List<Attraction> attractionList = attractionRepository.findAll();
+        model.addAttribute("attractions", attractionRepository.findAll());
+        model.addAttribute("attraction", attractionList);
+        return "/plan-adding";
+    }
+
+    @RequestMapping(value = "/plan-adding/{id}", method = RequestMethod.POST)
+    public String planAddingAttraction(@PathVariable Long id, Plan plan) {
+       List <Attraction> updatedAttractons = plan.getAttractions();
+       Optional<Plan> optional = planRepository.findById(id);
+        Plan planToBeUpdated = optional.get();
+        List <Attraction> toBeUpdated = planToBeUpdated.getAttractions();
+        List <Attraction> result = Stream.concat(updatedAttractons.stream(), toBeUpdated.stream())
+                        .collect(Collectors.toList());
+        planToBeUpdated.setAttractions(result);
+        planRepository.save(planToBeUpdated);
+        return "redirect:/tripz/user/plan-details/" +id;
+    }
+
     @RequestMapping(value = "/attractions", method = RequestMethod.GET)
     public String allAttractions(Model model) {
-        model.addAttribute("attractions1", attractionRepository.findAllByStateId(1l));
-        model.addAttribute("attractions2", attractionRepository.findAllByStateId(2l));
-        model.addAttribute("attractions3", attractionRepository.findAllByStateId(3l));
-        model.addAttribute("attractions4", attractionRepository.findAllByStateId(4l));
-        model.addAttribute("attractions5", attractionRepository.findAllByStateId(5l));
-        model.addAttribute("attractions6", attractionRepository.findAllByStateId(6l));
-        model.addAttribute("attractions7", attractionRepository.findAllByStateId(7l));
-        model.addAttribute("attractions8", attractionRepository.findAllByStateId(8l));
+        model.addAttribute("attractions", attractionRepository.findAll());
+        model.addAttribute("ratedAttraction", new RatedAttraction());
         return "/attractions";
     }
 
-//    @RequestMapping(value = "/attractions", method = RequestMethod.POST)
-//    public String rateAttraction(@Valid RatedAttraction ratedAttraction, Model model) {
-//
-//    ratedAttractionRepository.save(ratedAttraction);
-//        return "redirect:/tripz/user/attractions";
-//    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test(Model model) {
-        User user = new User();
-        user.setId(1L);
-        model.addAttribute("plans", planRepository.findAllByUser(user));
-        return "/plans2";
+    @RequestMapping(value = "/attractions", method = RequestMethod.POST)
+    public String rateAttraction(@Valid RatedAttraction ratedAttraction,  BindingResult result) {
+        if(result.hasErrors()){
+            return "redirect:/tripz/user/attractions";
+        }
+        ratedAttractionRepository.save(ratedAttraction);
+        return "redirect:/tripz/user/attractions";
     }
+
     @RequestMapping(value = "/attractions/{id}", method = RequestMethod.GET)
     public String attractionsSA(@PathVariable Long id, Model model) {
         model.addAttribute("state", stateRepository.findById(id).get());
@@ -83,9 +114,29 @@ public class UserInterfaceController {
     }
 
     @RequestMapping(value = "/plan/add", method = RequestMethod.GET)
-    public String planAdd() {
+    public String planAdd(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        //User user = (User) session.getAttribute("user");
+        User user = new User();
+        user.setLogin("Dziamdziak");
+        user.setId(10l);
+        model.addAttribute("user", user);
+        model.addAttribute("plan", new Plan());
         return "/planform";
     }
 
+    @RequestMapping(value = "/plan/add", method = RequestMethod.POST)
+    public String planAdd(@Valid Plan plan, BindingResult result) {
+        if(result.hasErrors()){
+            return "/planform";
+        }
+        planRepository.save(plan);
+        return "redirect:/tripz/user/userPlans";
+    }
+    @RequestMapping(value = "/states", method = RequestMethod.GET)
+    public String allStates(Model model) {
+        model.addAttribute("states", stateRepository.findAll());
+        return "/states";
+    }
 
 }

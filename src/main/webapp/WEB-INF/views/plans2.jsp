@@ -31,7 +31,7 @@
                                 <tr>
                                     <td>${plans.name}</td>
                                     <td>${plans.description}</td>
-                                    <td><a href="<c:url  value="/tripz/user/attractions"/> ">Add to your plan </a></td>
+                                    <td><a href="<c:url  value="/tripz/user/plan-adding/${plans.id}"/> ">Add to your plan </a></td>
                                     <td><a href="<c:url  value="/tripz/user/plan-details/${plans.id}"/> ">Plan details </a></td>
                                 </tr>
                             </c:forEach>
