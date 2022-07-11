@@ -1,40 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ include file="/WEB-INF/views/sidebar.jsp" %>
 <main>
     <div class="container-fluid px-4">
-        <c:forEach var="plan" items="${plan}">
         <h1 class="mt-4"> ${plan.name} details</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item">${plan.description}</li>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">${plan.description}</li>
 
-            </ol>
-       <div class="card mb-4">
+        </ol>
+        <div class="card mb-4">
             <div class="card-header">
-            <i class="fas fa-table me-1"></i>
+                <i class="fas fa-table me-1"></i>
                 Attractions:
-        </div>
-            </c:forEach>
+            </div>
             <div class="card-body">
                 <table id="datatablesSimple">
                     <thead>
                     <tr>
                         <th>name</th>
                         <th>description</th>
-                        <th></th>
+                        <th>add:</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody><form:form method="post" modelAttribute="plan">
                     <c:forEach var="attractions" items="${attractions}">
                         <tr>
                             <td>${attractions.name}</td>
                             <td>${attractions.description}</td>
-                        </tr>
-                    </c:forEach>
+                            <td>
+                                <form:checkbox path="attractions" items="${attractions}"
+                                                value="${attractions.id}"/>
 
+                        </tr>
+
+                    </c:forEach>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><input type="submit" value="Add" class="btn btn-primary"></td> </tr>
                     </tbody>
+                    </form:form>
+
                 </table>
+
             </div>
         </div>
     </div>
