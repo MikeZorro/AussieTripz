@@ -7,15 +7,14 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">Please log in:</h2>
+                <h2 class="text-white mb-4">Do you want to log out?</h2><p class="text-white-50">
             </div>
-            <form method="post" class="text-white-50">
-                <a style="color:crimson"> ${message} </a>
-                <div><label> User Name : <input type="text" name="userLogin"/> </label></div>
-                <div><label> Password: <input type="password" name="password"/> </label></div>
-                <div><input type="submit" value="Sign In"/></div>
+            <form action="<c:url value="/tripz/logout"/>" method="post">
+                <a class="btn btn-primary" href="/tripz/user/userpanel" value="back">Back</a>
+                <input class="btn btn-primary" type="submit" value="Log out">
+
             </form>
-            <p></p>
+<p></p>
         </div>
     </div>
 </section>

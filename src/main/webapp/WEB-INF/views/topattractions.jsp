@@ -48,23 +48,25 @@
 <section class="about-section text-center"  id="topattractions">
     <div class="container px-4 px-lg-8">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-8 justify-content-center">"
                 <h2 class="text-white mb-4">Top Attractions</h2><p class="text-white-50">
                 <p class="text-white-50">
                 <table class="text-white-50">
                     <tr>
                         <th>name</th>
                         <th>average rating</th>
-                        <th></th>
+                        <th></th>;
                     </tr>
                     <c:forEach var="attractions" items="${attractions}">
                     <tr>
                         <td>${attractions.get('name')}</td>
                         <td>${attractions.get('rating')}</td>
+                        <td>zdjecie</td>
 
                     </tr>
                     </c:forEach>
                 </table>
+            </div>
             </p>
             </div>
         </div>

@@ -15,7 +15,7 @@
     <div class="col-lg-3"><img class="img-fluid" src="<c:url value="/theme/assets/img/logo%202.jpg"/>" /></div>
     <div class="col-lg-6"></div>
     <div class="container-fluid px-4 text-right">
-        <div class="text-muted">Hello ${login}</div>
+        <div class="text-muted">Hello ${user.login}</div>
 
     </div>
 </nav>
@@ -77,10 +77,10 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="sb-sidenav-menu-heading">Extra</div>
-                    <a class="nav-link" href="charts.html">
+                    <div class="sb-sidenav-menu-heading">more</div>
+                    <a class="nav-link" href="/tripz/logout">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Rate Attractions
+                        Logout
                     </a>
                 </div>
             </div>

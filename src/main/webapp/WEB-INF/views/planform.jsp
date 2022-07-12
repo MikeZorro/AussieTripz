@@ -19,6 +19,7 @@
 
                 Description:</h4><form:input path="description"/></br>
                     <p style="color:crimson"><form:errors path="description" /></p>
+                    <form:hidden path="user" value="${user.id}"/>
                 <input type="submit" value="Add Plan" class="btn btn-primary">
 
                 </form:form>

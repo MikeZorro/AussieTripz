@@ -40,9 +40,10 @@
                         <td></td>
                         <td></td>
                         <td><input type="submit" value="Add" class="btn btn-primary"></td> </tr>
+                    <tr> <td><p> Everything already in your plan?</p></td><td> <p>More attractions coming soon!</p></td>
+                    </tr>
                     </tbody>
                     </form:form>
-                <p> Everything already in your plan? More attractions coming soon!</p>
                 </table>
 
             </div>
