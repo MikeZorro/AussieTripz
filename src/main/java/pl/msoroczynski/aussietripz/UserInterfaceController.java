@@ -42,6 +42,10 @@ public class UserInterfaceController {
     @RequestMapping(value = "/userpanel", method = RequestMethod.GET)
     public String user(Model model, HttpServletRequest request, HttpServletResponse response ) {
         HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            session.setAttribute("message", "Only available for logged in users");
+            return "redirect:/tripz/login";
+        }
         model.addAttribute("user", session.getAttribute("user"));
         return "/userpanel";
     }
@@ -112,10 +116,7 @@ public class UserInterfaceController {
     @RequestMapping(value = "/plan/add", method = RequestMethod.GET)
     public String planAdd(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        //User user = (User) session.getAttribute("user");
-        User user = new User();
-        user.setLogin("Dziamdziak");
-        user.setId(10l);
+        User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("plan", new Plan());
         return "/planform";

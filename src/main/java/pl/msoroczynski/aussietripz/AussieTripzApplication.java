@@ -2,6 +2,7 @@ package pl.msoroczynski.aussietripz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
@@ -31,7 +32,21 @@ public class AussieTripzApplication {
     public Validator validator() {
         return new LocalValidatorFactoryBean();
     }
+    @Bean
+    public SecurityFilter securityFilter(){
+        return new SecurityFilter();
+    }
+    @Bean
+    public FilterRegistrationBean securityFilterRegistration() {
 
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(securityFilter());
+        registration.addUrlPatterns("/tripz/user/*");
+        registration.addInitParameter("paramName", "paramValue");
+        registration.setName("securityFilter");
+        registration.setOrder(1);
+        return registration;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(AussieTripzApplication.class, args);
