@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface AttractionRepository extends JpaRepository<Attraction, Long> {
@@ -16,6 +15,6 @@ public interface AttractionRepository extends JpaRepository<Attraction, Long> {
     @Query(value = "select * from attractions a where a.state_id=?1", nativeQuery = true)
     List<Attraction> findAllByStateId(Long id);
 
-//    @Query(value = "SELECT id from AussieTripz.attractions left join plans_attractions pa on attractions.id = pa.attractions_id where attractions_id NOT IN (SELECT attractions_id FROM plans_attractions where plan_id=?1)", nativeQuery = true)
-//    List<Attraction> findAllNotInaPlanId(Long id);
+    @Query(value = "select id, name, description, state_id from attractions where id NOT IN (select attractions_id from plans_attractions where plan_id=?1)", nativeQuery = true)
+    List<Attraction> findAllNotInaPlanId(Plan plan);
 }

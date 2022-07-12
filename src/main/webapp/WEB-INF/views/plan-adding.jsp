@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/views/sidebar.jsp" %>
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4"> ${plan.name} details</h1>
+        <h1 class="mt-4">Add attractions to ${plan.name}</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item">${plan.description}</li>
 
@@ -42,7 +42,7 @@
                         <td><input type="submit" value="Add" class="btn btn-primary"></td> </tr>
                     </tbody>
                     </form:form>
-
+                <p> Everything already in your plan? More attractions coming soon!</p>
                 </table>
 
             </div>

@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
 import javax.validation.Valid;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,9 +68,8 @@ public class UserInterfaceController {
         List<Plan> optionalPlan = planRepository.findFirstById(Long.parseLong(id));
         Plan plan = optionalPlan.get(0);
         model.addAttribute("plan", plan);
-        List<Attraction> attractionList = attractionRepository.findAll();
-        model.addAttribute("attractions", attractionRepository.findAll());
-        model.addAttribute("attraction", attractionList);
+        List<Attraction> remaining = attractionRepository.findAllNotInaPlanId(plan);
+        model.addAttribute("attractions", remaining);
         return "/plan-adding";
     }
 
@@ -87,7 +83,7 @@ public class UserInterfaceController {
                         .collect(Collectors.toList());
         planToBeUpdated.setAttractions(result);
         planRepository.save(planToBeUpdated);
-        return "redirect:/tripz/user/plan-details/" +id;
+        return "redirect:/tripz/user/userPlans";
     }
 
     @RequestMapping(value = "/attractions", method = RequestMethod.GET)
