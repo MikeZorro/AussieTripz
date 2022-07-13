@@ -2,13 +2,11 @@ package pl.msoroczynski.aussietripz;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Entity
@@ -25,7 +23,8 @@ public class User {
     @NotEmpty
     @Email
     private String email;
-    @NotEmpty
+    @NotNull
     @Size(min = 3, message = "Password too short")
+    @Type(type = "text")
     private String password;
 }

@@ -19,7 +19,8 @@ public class SecurityFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("userlog") == null) {
+            session.setAttribute("message", "available only for logged users!");
             response.sendRedirect("/tripz/login");
         }
         filterChain.doFilter(request, response);

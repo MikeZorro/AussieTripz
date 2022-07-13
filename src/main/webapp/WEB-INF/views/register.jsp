@@ -16,7 +16,7 @@
                 <h4 class="text-white-50">Email:</h4><form:input path="email"/></br>
                 <p style="color:crimson"><form:errors path="email" /></p></br>
 
-                <h4 class="text-white-50">Password:</h4><form:input path="password"/></br>
+                <h4 class="text-white-50">Password:</h4><form:password path="password"/></br>
                 <p style="color:crimson"><form:errors path="password" /></p></br>
                 <input type="submit" value="Register" class="btn btn-primary">
                 </p>

@@ -46,24 +46,30 @@ public class AussieTripzController {
         newUser.setPassword(hashPassword(user.getPassword()));
         userRepository.save(newUser);
         HttpSession session = request.getSession();
-        session.setAttribute("user", newUser);
+        session.setAttribute("userlog", newUser);
         return "redirect:/tripz/user/userpanel";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("message");
         return "/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@RequestParam String userLogin, @RequestParam String password, HttpServletRequest request) {
-        User user = userRepository.findFirstByLogin(userLogin);
+    public String loginPOST(@RequestParam String login, @RequestParam String password, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if(!checkPassword(password, user.getPassword())){
-            session.setAttribute("message", "Invalid login and/or password!");
+        if(!userRepository.existsUserByLogin(login)){
+            session.setAttribute("message", "Invalid  login!");
             return "/login";
         }
-        session.setAttribute("user", user);
+        User user = userRepository.findFirstByLogin(login);
+        if(!checkPassword(password, user.getPassword())){
+            session.setAttribute("message", "Invalid  password!");
+            return "/login";
+        }
+        session.setAttribute("userlog", user);
         return "redirect:/tripz/user/userpanel";
     }
 

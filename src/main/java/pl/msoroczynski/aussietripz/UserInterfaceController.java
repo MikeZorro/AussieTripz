@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,21 +43,19 @@ public class UserInterfaceController {
     @RequestMapping(value = "/userpanel", method = RequestMethod.GET)
     public String user(Model model, HttpServletRequest request, HttpServletResponse response ) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null){
-            session.setAttribute("message", "Only available for logged in users");
-            return "redirect:/tripz/login";
-        }
-        model.addAttribute("user", session.getAttribute("user"));
+        User user = (User)session.getAttribute("userlog");
+        model.addAttribute("user", user);
         return "/userpanel";
     }
 
     @RequestMapping(value = "/userPlans", method = RequestMethod.GET)
     public String userPlans(Model model,HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("userlog");
         model.addAttribute("plans", planRepository.findAllByUser(user));
         return "/plans2";
     }
+
 
     @RequestMapping(value = "/plan-details/{id}", method = RequestMethod.GET)
     public String planDetails(@PathVariable String id, Model model) {
@@ -116,7 +115,7 @@ public class UserInterfaceController {
     @RequestMapping(value = "/plan/add", method = RequestMethod.GET)
     public String planAdd(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("userlog");
         model.addAttribute("user", user);
         model.addAttribute("plan", new Plan());
         return "/planform";
@@ -130,10 +129,36 @@ public class UserInterfaceController {
         planRepository.save(plan);
         return "redirect:/tripz/user/userPlans";
     }
+
     @RequestMapping(value = "/states", method = RequestMethod.GET)
     public String allStates(Model model) {
         model.addAttribute("states", stateRepository.findAll());
         return "/states";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editUSer(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User userFromSession = (User) session.getAttribute("userlog");
+        User user = userRepository.findFirstByLogin(userFromSession.getLogin());
+        model.addAttribute("user", user);
+        return "/useredit";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String editUserPost(@Valid User user, BindingResult result, HttpServletRequest request) {
+        if(result.hasErrors()){
+            return "/useredit";
+        }
+        HttpSession session = request.getSession();
+        User originalUser = (User) session.getAttribute("userlog");
+        String login = originalUser.getLogin();
+        User userToBeUpdated = userRepository.findFirstByLogin(login);
+        userToBeUpdated.setLogin(user.getLogin());
+        userToBeUpdated.setEmail(userToBeUpdated.getEmail());
+        userRepository.save(userToBeUpdated);
+        session.setAttribute("userlog", userToBeUpdated);
+        return "redirect:/tripz/user/userpanel";
     }
 
 }

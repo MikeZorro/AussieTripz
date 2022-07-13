@@ -2,6 +2,7 @@ package pl.msoroczynski.aussietripz;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +34,7 @@ public class Attraction {
     private State state;
     @ManyToMany
     private List<Plan> plans;
+
 
 
 }
