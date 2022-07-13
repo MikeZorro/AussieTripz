@@ -24,4 +24,3 @@ public class StateController {
         return "List of states updated!";
     }
 }
-ą
