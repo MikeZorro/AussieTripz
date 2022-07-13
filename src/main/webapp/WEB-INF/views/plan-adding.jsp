@@ -25,6 +25,7 @@
                     </tr>
                     </thead>
                     <tbody><form:form method="post" modelAttribute="plan">
+
                     <c:forEach var="attractions" items="${attractions}">
                         <tr>
                             <td>${attractions.name}</td>
@@ -34,8 +35,8 @@
                                                 value="${attractions.id}"/>
 
                         </tr>
-
                     </c:forEach>
+
                     <tr>
                         <td></td>
                         <td></td>

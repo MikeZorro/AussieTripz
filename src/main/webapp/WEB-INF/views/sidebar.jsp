@@ -15,7 +15,7 @@
     <div class="col-lg-3"><img class="img-fluid" src="<c:url value="/theme/assets/img/logo%202.jpg"/>" /></div>
     <div class="col-lg-6"></div>
     <div class="container-fluid px-4 text-right">
-        <div class="text-muted">Hello ${user.login}</div>
+        <div class="text-muted">Hello ${userlog.login}</div>
 
     </div>
 </nav>
