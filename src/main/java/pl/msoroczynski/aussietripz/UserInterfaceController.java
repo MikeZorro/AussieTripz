@@ -155,7 +155,7 @@ public class UserInterfaceController {
         String login = originalUser.getLogin();
         User userToBeUpdated = userRepository.findFirstByLogin(login);
         userToBeUpdated.setLogin(user.getLogin());
-        userToBeUpdated.setEmail(userToBeUpdated.getEmail());
+        userToBeUpdated.setEmail(user.getEmail());
         userRepository.save(userToBeUpdated);
         session.setAttribute("userlog", userToBeUpdated);
         return "redirect:/tripz/user/userpanel";

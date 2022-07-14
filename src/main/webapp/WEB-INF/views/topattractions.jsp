@@ -61,7 +61,6 @@
                     <tr>
                         <td>${attractions.get('name')}</td>
                         <td>${attractions.get('rating')}</td>
-                        <td>zdjecie</td>
 
                     </tr>
                     </c:forEach>

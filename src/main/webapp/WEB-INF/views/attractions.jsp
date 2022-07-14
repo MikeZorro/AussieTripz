@@ -31,7 +31,7 @@ Attraction List
             <td>${attractions.name}</td>
             <td>${attractions.description}</td>
             <form:hidden path="attraction" itemValue="id" value ="${attractions.id}"/>
-            <td>Rate: <form:input path="rating"/></td>
+            <td>Rate: <form:input path="rating" placeholder="1 - 10"/></td>
                 <td><p style="color:crimson"><form:errors path="rating"/></p></td>
             <td><input type="submit" value="Rate"></td>
 

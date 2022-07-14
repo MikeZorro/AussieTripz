@@ -25,7 +25,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">AussieTripz</div>
-                    <a class="nav-link" href="/tripz/user/home">
+                    <a class="nav-link" href="/">
                         Home
                     </a>
                     <a class="nav-link" href="/tripz/user/userpanel">
@@ -78,6 +78,10 @@
                         </nav>
                     </div>
                     <div class="sb-sidenav-menu-heading">more</div>
+                    <a class="nav-link" href="/tripz/topattractions">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        Top Attractions
+                    </a>
                     <a class="nav-link" href="/tripz/logout">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Logout
